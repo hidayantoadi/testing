@@ -22,8 +22,6 @@ Laundry dibangun menggunakan [Laravel](http://laravel.com), the best existing PH
 * Detail login, Email : `admin@laundry.com` Password `123456`
 * Run `php artisan queue:listen` for run queue
     
-Note : Aplikasi ini akan terus saya update.<br>
-Kalau ada pertanyaan bisa kontak aku di email ini <b>andridesmana29@outlook.com</b>
 </p>
 
 ## Package
@@ -62,9 +60,6 @@ Kalau ada pertanyaan bisa kontak aku di email ini <b>andridesmana29@outlook.com<
 
 Support E-Laundry by becoming a sponsor on [Saweria](https://saweria.co/andes2912). Your logo will show up here with a link to your website.
 
-## Any Questions ?
-
-Please contact me on [Andri Desmana](mailto:andridesmana29@outlook.com?subject=[GitHub]%20Questesion%20Pap!Kos) or [Telegram](https://t.me/andridesmana)
 
 ## License
 
