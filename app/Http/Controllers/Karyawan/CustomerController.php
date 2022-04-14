@@ -98,7 +98,7 @@ class CustomerController extends Controller
       $st = '';
       for($i=0; $i<$long; $i++){
         $p = rand(0, strlen($huruf)-1);
-        $st .=$huruf{$p};
+        $st .=$huruf[$p];
       }
       return $st;
     }
