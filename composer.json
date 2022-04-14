@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.0.0",
+        "php": "^8.0.0",
         "andes2912/indobank": "^0.6.0",
         "barryvdh/laravel-dompdf": "^0.8.4",
         "fideloper/proxy": "^4.0",
