@@ -1,3 +1,7 @@
+https://www.ayongoding.com/install-laravel-linux-mint/
+https://www.ayongoding.com/install-composer-linux-mint/
+
+
 https://medium.com/angkringan/cara-clone-project-laravel-dari-git-bb2dd403dde3
 https://github.com/andes2912/laundry
 
@@ -16,7 +20,7 @@ Dalam contoh di atas, saya akan melakukan clone dari repositori laravel-apitoken
 
 Di sini, saya menggunakan terminal untuk menjalankan perintah Git Clone.
 
-git clone git@github.com:showcheap/laravel-apitoken.git
+*) git clone git@github.com:showcheap/laravel-apitoken.git
 
 Kurang lebih, outputnya akan seperti ini
 
@@ -28,7 +32,9 @@ Resolving deltas: 100% (16/16), done.
 
 Install Depedency
 
-Depedensi adalah sekumpulan library yang dibutuhkan oleh aplikasi laravel kita, termasuk framework Laravel itu sendiri. List depedensi dapat dilihat pada berkas composer.json . Untuk menginstall semua depedensi, gunakan perintah composer install dan composer akan melakukan penelusuran depedensi apa saja yang dibutuhkan aplikasi, lalu mengunduhnya kedalam folder vendor . Sekali lagi, saya asumsikan disini sudah terinstall composer di mesin masing masing.
+Depedensi adalah sekumpulan library yang dibutuhkan oleh aplikasi laravel kita, termasuk framework Laravel itu sendiri. List depedensi dapat dilihat pada berkas composer.json . Untuk menginstall semua depedensi, gunakan perintah 
+*) composer install 
+dan composer akan melakukan penelusuran depedensi apa saja yang dibutuhkan aplikasi, lalu mengunduhnya kedalam folder vendor . Sekali lagi, saya asumsikan disini sudah terinstall composer di mesin masing masing.
 
 Loading composer repositories with package information
 Installing dependencies (including require-dev) from lock file
@@ -38,11 +44,12 @@ Package operations: 59 installs, 0 updates, 0 removals
 ..............panjang sekali disini, dan butuh waktu lama.........
 
 Di tahap ini, biasanya prosesnya cukup lama. Tergantung koneksi internet, dan cache si composer.
+
 Setup Environment Variable
 
 Setelah composer install selesai, kemudian kita butuh membuat file .env di folder aplikasi kita. Namun, biasanya sudah ada file sampelnya. Kita cukup menyalin file itu saja (atau mengikuti README masing masing project).
 
-cp .env.example .env
+*) cp .env.example .env
 
 Kemudian isikan semua pengaturan yang perlu kamu masukkan, biasanya yang penting adalah pengaturan koneksi database.
 
@@ -51,20 +58,20 @@ Error App Key
 
 Solusinya, cukup menjalankan perintah ini di terminal
 
-php artisan key:generate
+*) php artisan key:generate
 
 Migrate & Seed
 
 Langkah selanjutnya adalah melakukan migrate & seed dengan menjalankan perintah berikut ini
 
-php artisan migrate --seed
+*) php artisan migrate --seed
 
 Output
 Run Local Dev Server
 
 Setelah semua sudah berhasil, langkah selanjutnya jalankan local server dengan perintah
 
-php artisan serve
+*) php artisan serve
 
 Done. Selamat mencoba 😁👏
 
