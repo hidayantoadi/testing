@@ -53,9 +53,13 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group has-success">
-                        <label class="control-label">Berat Pakaian</label>
-                        <input type="text" class="form-control form-control-danger @error('kg') is-invalid @enderror" value=" {{old('kg')}} " name="kg" placeholder="Berat Pakaian" autocomplete="off" >
-                        @error('kg')
+                        <label class="control-label">Jenis Pembayaran</label>
+                        <select class="form-control custom-select @error('jenis_pembayaran') is-invalid @enderror" name="jenis_pembayaran" >
+                          <option value="">-- Pilih Jenis Pembayaran --</option>
+                          <option value="Tunai" {{old('jenis_pembayaran' == 'Tunai' ? 'selected' : '')}} >Tunai</option>
+                          <option value="Transfer" {{old('jenis_pembayaran' == 'Transfer' ? 'selected' : '')}}>Transfer</option>
+                        </select>
+                        @error('jenis_pembayaran')
                           <span class="invalid-feedback text-danger" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -83,31 +87,27 @@
               <div class="row">
 
                 <div class="col-md-3">
-                  <div class="form-group has-success">
-                      <label class="control-label">Jenis Pembayaran</label>
-                      <select class="form-control custom-select @error('jenis_pembayaran') is-invalid @enderror" name="jenis_pembayaran" >
-                        <option value="">-- Pilih Jenis Pembayaran --</option>
-                        <option value="Tunai" {{old('jenis_pembayaran' == 'Tunai' ? 'selected' : '')}} >Tunai</option>
-                        <option value="Transfer" {{old('jenis_pembayaran' == 'Transfer' ? 'selected' : '')}}>Transfer</option>
-                      </select>
-                      @error('jenis_pembayaran')
-                        <span class="invalid-feedback text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
+                    <div class="form-group has-success">
+                        <label class="control-label">Berat Pakaian</label>
+                        <input type="text" class="form-control form-control-danger @error('kg') is-invalid @enderror" value=" {{old('kg')}} " name="kg[]" placeholder="Berat Pakaian" autocomplete="off" >
+                        @error('kg')
+                          <span class="invalid-feedback text-danger" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                    </div>
                   </div>
-                </div>
 
                 <div class="col-md-3">
                   <div class="orm-group has-success">
                       <label class="control-label">Pilih Pakaian</label>
-                      <select id="id" name="harga_id" class="form-control select2 @error('harga_id') is-invalid @enderror" >
+                      <select id="id[]" name="harga_id[]" class="form-control select2 @error('harga_id[]') is-invalid @enderror" >
                           <option value="">-- Jenis Pakaian --</option>
                           @foreach($jenisPakaian as $jenis)
-                            <option value="{{$jenis->id}}" {{old('harga_id') == $jenis->id ? 'selected' : '' }} >{{$jenis->jenis}}</option>
+                            <option value="{{$jenis->id}}" {{old('harga_id[]') == $jenis->id ? 'selected' : '' }} >{{$jenis->jenis}}</option>
                           @endforeach
                       </select>
-                      @error('harga_id')
+                      @error('harga_id[]')
                         <span class="invalid-feedback text-danger" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -118,12 +118,12 @@
                     <span id="select-hari"></span>
                 </div>
                 <div class="col-md-2">
-                    <span id="select-harga"></span>
+                    <span id="select-harga[]"></span>
                 </div>
                 <div class="col-md-2">
                   <div class="form-group has-success">
                       <label class="control-label">Disc</label>
-                      <input type="number" name="disc" placeholder="Tulis Disc" class="form-control @error('disc') is-invalid @enderror">
+                      <input type="number" name="disc[]" placeholder="Tulis Disc" class="form-control @error('disc') is-invalid @enderror">
                       @error('disc')
                         <span class="invalid-feedback text-danger" role="alert">
                             <strong>{{ $message }}</strong>
@@ -131,8 +131,15 @@
                       @enderror
                   </div>
                 </div>
-              </div>
+                <div class="col-md-2">
+                    <div class="form-group has-success">
+                        <a href="#" class="adddetailtransaksi btn btn-primary">+</a>
+                    </div>
+                  </div>
+            </div>
 
+            </div>
+              <div class="detailTransaksi"></div>
                 <input type="hidden" name="tgl">
                 <!--/row-->
             </div>
@@ -161,29 +168,52 @@
     @endif
 @endsection
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script type="text/javascript">
+
+    $('.adddetailtransaksi').on('click',function(){
+        addDetailTransaksi();
+    });
+    function addDetailTransaksi(){
+        var detailtransaksi = '<div><div class="row"><div class="col-md-3"><div class="form-group has-success"><label class="control-label">Berat Pakaian</label><input type="text" class="form-control form-control-danger @error('kg') is-invalid @enderror" value=" {{old('kg')}} " name="kg[]" placeholder="Berat Pakaian" autocomplete="off" >'
+        + '@error('kg')<span class="invalid-feedback text-danger" role="alert"><strong>{{ $message }}</strong></span>@enderror</div></div>'
+        + '<div class="col-md-3"><div class="orm-group has-success"><label class="control-label">Pilih Pakaian</label><select id="id[]" name="harga_id[]" class="form-control select2 @error('harga_id') is-invalid @enderror" ><option value="">-- Jenis Pakaian --</option>'
+        + '@foreach($jenisPakaian as $jenis)<option value="{{$jenis->id}}" {{old('harga_id') == $jenis->id ? 'selected' : '' }} >{{$jenis->jenis}}</option>@endforeach'
+        + '</select>@error('harga_id')<span class="invalid-feedback text-danger" role="alert"><strong>{{ $message }}</strong></span>@enderror</div></div>'
++'<div class="col-md-2"><span id="select-hari"></span></div>'
++'<div class="col-md-2"><span id="select-harga"></span></div>'
++'<div class="col-md-2"><div class="form-group has-success"><label class="control-label">Disc</label><input type="number" name="disc[]" placeholder="Tulis Disc" class="form-control @error('disc') is-invalid @enderror">@error('disc')<span class="invalid-feedback text-danger" role="alert">'
++'<strong>{{ $message }}</strong></span>@enderror</div></div><div class="col-md-2"><div class="form-group has-success"><a href="#" class="removedetailtransaksi btn btn-danger">-</a></div></div></div></div>';
+        $('.detailTransaksi').append(detailtransaksi);
+    };
+    $('.removedetailtransaksi').live('click',function(){
+        $(this).parent().parent().parent().remove();
+    });
+
     // Filter Harga
     $(document).ready(function() {
-       var id = $("#id").val();
+       var id = $("#id[]").val();
             $.get('{{ Url("listhari") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
             $("#select-hari").html(resp);
-            $.get('{{ Url("listharga") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
-            $("#select-harga").html(resp);
+            $.get('{{ Url("listhargatransaksi") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
+            $("#select-harga[]").html(resp);
         });
         });
     });
 
-    $(document).on('change', '#id', function (e) {
+    $(document).on('change', '#id[]', function (e) {
       var id = $(this).val();
+      alert('test2');
       $.get('{{ Url("listhari") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
         $("#select-hari").html(resp);
       });
     });
 
-    $(document).on('change', '#id', function (e) {
+    $(document).on('change', '#id[]', function (e) {
         var id = $(this).val();
-        $.get('{{ Url("listharga") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
-            $("#select-harga").html(resp);
+        alert('test');
+        $.get('{{ Url("listhargatransaksi") }}',{'_token': $('meta[name=csrf-token]').attr('content'),id:id}, function(resp){
+            $("#select-harga[]").html(resp);
         });
     });
 </script>

@@ -105,6 +105,10 @@ class PelayananController extends Controller
     {
       $customer = User::where('karyawan_id',Auth::user()->id)->get();
       $jenisPakaian = harga::where('user_id',Auth::id())->where('status','1')->get();
+    //   $list_harga = harga::select('id','harga')
+    //   ->where('user_id',Auth::user()->id)
+    //   ->where('id',$request->id)
+    //   ->get();
 
       $y = date('Y');
       $number = mt_rand(1000, 9999);
@@ -227,4 +231,49 @@ class PelayananController extends Controller
           Session::flash('success', "Status Laundry Berhasil Diubah !");
       }
     }
+
+    // Filter List Harga
+    public function listhargatransaksi(Request $request)
+    {
+       $list_harga = harga::select('id','harga')
+        ->where('user_id',Auth::user()->id)
+        ->where('id',$request->id)
+        ->get();
+        $select = '';
+        $select .= '
+                    <div class="form-group has-success">
+                    <label for="id" class="control-label">Harga</label>
+                    <select id="harga[]" class="form-control" name="harga[]" value="harga">
+                    ';
+                    foreach ($list_harga as $studi) {
+        $select .= '<option value="'.$studi->harga.'">'.'Rp. ' .number_format($studi->harga,0,",",".").'</option>';
+                    }'
+                    </select>
+                    </div>
+                    </div>';
+        return $select;
+    }
+
+    // Filter List Jumlah Hari
+    public function listharitransaksi(Request $request)
+    {
+      $list_jenis = harga::select('id','hari')
+        ->where('user_id',Auth::user()->id)
+        ->where('id',$request->id)
+        ->get();
+        $select = '';
+        $select .= '
+                    <div class="form-group has-success">
+                    <label for="id" class="control-label">Pilih Hari</label>
+                    <select id="hari" class="form-control" name="hari" value="hari">
+                    ';
+                    foreach ($list_jenis as $hari) {
+        $select .= '<option value="'.$hari->hari.'">'.$hari->hari.'</option>';
+                    }'
+                    </select>
+                    </div>
+                    </div>';
+        return $select;
+    }
+
 }

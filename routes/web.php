@@ -74,6 +74,8 @@ Route::middleware('auth')->group(function () {
     // Filter
     Route::get('listharga','Karyawan\PelayananController@listharga');
     Route::get('listhari','Karyawan\PelayananController@listhari');
+    Route::get('listhargatransaksi','Karyawan\PelayananController@listhargatransaksi');
+    Route::get('listharitransaksi','Karyawan\PelayananController@listharitransaksi');
 
     // Laporan
     Route::get('laporan','Karyawan\LaporanController@laporan');
